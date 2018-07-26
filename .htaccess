@@ -1,0 +1,7 @@
+# Configuração Redirecionamentos
+Options +FollowSymLinks
+RewriteEngine on
+
+# Solicitante
+RewriteRule ^solicitante\/cadastro\/?$ controladores/solicitante/cadastro.php
+RewriteRule ^solicitante\/cadastro\/confirmacao\/?$ controladores/solicitante/cadastroConfirmacao.php?%{QUERY_STRING}
