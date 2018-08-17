@@ -36,6 +36,7 @@ define("SMTP_PWD", "");
 // Endereços do site
 
 //endereço principal do site
+define("NOME_INSTITUICAO", "e-SIC Livre");
 define("SITELNK", "http://www.seusite/esiclivre/");
 
 //endereço principal do site administração

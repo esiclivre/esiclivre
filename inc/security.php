@@ -305,7 +305,7 @@ function prepData($var) {
     $var = stripslashes($var);
   }
 
-  $retorno = mysqli_real_escape_string($var);
+  $retorno = mysqli_real_escape_string($conn, $var);
 
   db_close($conn);
 
