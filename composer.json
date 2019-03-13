@@ -1,5 +1,14 @@
 {
+    "name": "ciebit/esiclivre",
+    "description": "Solução voltada para gestão de atendimento ao público que visa atender a Lei de Acesso à Informação",
+    "type": "library",
+    "license": "GPL-2.0-only",
+    "autoload": {
+        "psr-4": {
+            "Esic\\": "classes/"
+        }
+    },
     "require": {
-        "phpmailer/phpmailer": "^5.2"
+        "phpmailer/phpmailer": "^6.0"
     }
 }
