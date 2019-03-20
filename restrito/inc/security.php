@@ -26,7 +26,6 @@ function sendMail($to, $subject,$body,$from="",$fromname="")
 
 function LocalSendMail($to, $subject,$body,$from="",$fromname="")
 {
-    echo "<script>alert('local errado')</script>";
                 //se nao for informado o remetente, recupera das configurações do sistema
 		if(empty($from))
                 {
@@ -82,10 +81,7 @@ function PHPMailerSendMail($to, $subject, $body, $from="", $fromname=""){
     ->setFrom($from, $fromname)
     ->addTo($to)
     ->setSubject($subject)
-    ->setModeDebug(true)
     ->setBody($html, true, $body);
-
-    echo "<script>alert('vim aqui: {$mail->getError()}')</script>";
 
     if ($mail->send()) {
         return true;
