@@ -8,6 +8,9 @@
  modificá-lo sob os termos da Licença GPL2.
 ***********************************************************************************/
 
+use Esic\Container;
+use Esic\Senders\Mail;
+
 require_once ("database.php");
 require_once ("funcoes.php");
 require_once ("config.php");
@@ -60,47 +63,34 @@ function LocalSendMail($to, $subject,$body,$from="",$fromname="")
 
  //Function SendMail com phpMailer - Opcional
 
-function PHPMailerSendMail($to, $subject, $body, $from="", $fromname=""){
-    require_once("../class/PHPMailerAutoload.php");
-    $mail = new PHPMailer();
-    $mail->isSMTP();                    // Define que a mensagem ser� SMTP
-    $mail->CharSet = 'UTF-8';
-    $mail->Host = MAIL_HOST;          //hostname ou IP do Servidor
-    $mail->SMTPAuth = SMTP_AUTH;      //Caso seu email precise de autentica��o, no nosso caso n�o.
-    if (SMTP_AUTH) {
-		$mail->Username = SMTP_USER;
-		$mail->Password = SMTP_PWD;
-	}
-    if(empty($from)){
+function PHPMailerSendMail($to, $subject, $body, $from = '', $fromname = '')
+{
+    if (empty($from)) {
         $sql = "SELECT nomeremetenteemail, emailremetente FROM lda_configuracao";
         $rs = execQuery($sql);
         $row = mysqli_fetch_array($rs);
-         $mail->From = $row['emailremetente'];
-         $mail->FromName = $row['nomeremetenteemail'];
-    }else{
-        $mail->From = $from;
-         $mail->FromName = $fromname;
+        $from = $row['emailremetente'];
+        $fromname = $row['nomeremetenteemail'];
     }
-     $mail->addAddress($to);
-    $mail->isHTML(true);                      //Define que o email ser� HTML
-    $mail->CharSet = "iso-8859-1";       //Charset da mensagem (opcional)
-    $mail->Subject = $subject;
     $html = "<html>
-                    <body>
-                        $body
-                    </body>
-                </html>";
-     $mail->Body = $html;
-    $mail->AltBody = $body;               //Texto Plano (opcional)
-    $envia = $mail->send();                //Envia o email
-    $mail->clearAllRecipients();          //Limpa os destinatarios
-     if($envia){                                    //Retorno do email
-        return TRUE;
-    }else{
-		error_log("E-mail de confirmação de cadastro não pôde ser enviado. Descrição do erro:");
-		error_log($mail->ErrorInfo);
-        return FALSE;
+        <body>
+            {$body}
+        </body>
+    </html>";
+
+    $mail = (new Mail(Container::get('settingsMailer')))
+    ->setFrom($from, $fromname)
+    ->addTo($to)
+    ->setSubject($subject)
+    ->setBody($html, true, $body);
+
+     if ($mail->send()) {
+        return true;
     }
+
+    error_log('E-mail de confirmação de cadastro não pôde ser enviado. Descrição do erro:');
+    error_log($mail->getError());
+    return false;
 }
 
 function sendMailAnexo($to, $subject,$body,$arquivos=array(),$from="",$fromname="",$cc="")

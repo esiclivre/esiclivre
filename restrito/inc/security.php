@@ -8,6 +8,9 @@
  modificá-lo sob os termos da Licença GPL2.
 ***********************************************************************************/
 
+use Esic\Container;
+use Esic\Senders\Mail;
+
 require_once ("database.php");
 require_once ("funcoes.php");
 require_once ("config.php");
@@ -15,7 +18,7 @@ require_once ("config.php");
 function sendMail($to, $subject,$body,$from="",$fromname="")
 {
 	if (USE_PHPMAILER) {
-		return PHPMailerSendMail($to, $subject,$body,'ouvidoria@tce.rn.gov.br',$fromname);
+		return PHPMailerSendMail($to, $subject,$body,null,$fromname);
 	}
 	else
 		return LocalSendMail($to, $subject,$body,$from,$fromname);
@@ -61,62 +64,33 @@ function LocalSendMail($to, $subject,$body,$from="",$fromname="")
 
 //Function SendMail com phpMailer - Opcional
 function PHPMailerSendMail($to, $subject, $body, $from="", $fromname=""){
-    require_once("../../class/PHPMailerAutoload.php");
-    $mail = new PHPMailer();
-    $mail->isSMTP();                    // Define que a mensagem ser� SMTP
-
-	$mail->Host 		= MAIL_HOST;          //hostname ou IP do Servidor
-    $mail->SMTPAuth 	= SMTP_AUTH;      //Caso seu email precise de autentica��o, no nosso caso n�o.
-    $mail->SMTPSecure 	= MAIL_TYPE;
-    $mail->Port 		= MAIL_PORT;
-
-    if (SMTP_AUTH) {
-		$mail->Username = SMTP_USER;
-		$mail->Password = SMTP_PWD;
-	}
-
-    if(empty($from)){
-
-        $sql	= "SELECT nomeremetenteemail, emailremetente FROM lda_configuracao";
-        $rs		= execQuery($sql);
-        $row	= mysqli_fetch_array($rs);
-
-        $mail->From 	= $row['emailremetente'];
-        $mail->FromName	= $row['nomeremetenteemail'];
-
-    } else{
-        $mail->From 	= $from;
-        $mail->FromName = $fromname;
+    if (empty($from)) {
+        $sql = "SELECT nomeremetenteemail, emailremetente FROM lda_configuracao";
+        $rs = execQuery($sql);
+        $row = mysqli_fetch_array($rs);
+        $from = $row['emailremetente'];
+        $fromname = $row['nomeremetenteemail'];
     }
-
-	$mail->AddBCC("guilhr@gmail.com;ananda_luana@hotmail.com"); //Copia oculta para monitorar as primeiras demandas
-    $mail->addAddress($to);
-    $mail->isHTML(true); 	//Define que o email ser� HTML
-
-	$mail->CharSet = "iso-8859-1";   //Charset da mensagem (opcional)
-    $mail->Subject = $subject;
-
     $html = "<html>
-				<body>
-					$body
-				</body>
-			</html>";
+        <body>
+            {$body}
+        </body>
+    </html>";
 
-	$mail->Body 	= $html;
-    $mail->AltBody 	= $body;	//Texto Plano (opcional)
+    $mail = (new Mail(Container::get('settingsMailer')))
+    ->setFrom($from, $fromname)
+    ->addTo($to)
+    ->setSubject($subject)
+    ->setBody($html, true, $body);
 
-	//Envia o email
-    $envia = $mail->send();
-	$mail->clearAllRecipients(); //Limpa os destinatarios
-
-	//Retorno do envio
-    if($envia){
-        return TRUE;
-    }else{
-		error_log("E-mail de confirma��o de cadastro n�o p�de ser enviado. Descri��o do erro:");
-		error_log($mail->ErrorInfo);
-        return FALSE;
+    if ($mail->send()) {
+        return true;
     }
+
+
+    error_log('E-mail de confirmação de cadastro não pôde ser enviado. Descrição do erro:');
+    error_log($mail->getError());
+    return false;
 }
 
 function sendMailAnexo($to, $subject,$body,$arquivos=array(),$from="",$fromname="",$cc="")
