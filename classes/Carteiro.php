@@ -1,6 +1,8 @@
 <?php
 namespace Esic;
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 class Carteiro
 {
     private $assunto;
@@ -35,7 +37,7 @@ class Carteiro
 
     public function enviar()
     {
-        $PHPMailer = new \PHPMailer;
+        $PHPMailer = new PHPMailer;
         $PHPMailer->setLanguage('pt_br');
         $PHPMailer->CharSet = 'UTF-8';
 
