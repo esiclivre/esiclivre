@@ -1,12 +1,16 @@
 <?php
 namespace Esic\Settings;
 
+use Esic\Entity;
 use Esic\Settings\Settings;
 
 class App implements Settings
 {
     /** @var string */
     private $description;
+
+    /** @var Entity|Null */
+    private $entityContact;
 
     /** @var string */
     private $keyWords;
@@ -23,11 +27,27 @@ class App implements Settings
         $this->keyWords = (string) ($config['keyWords'] ?? '');
         $this->name = (string) ($config['name'] ?? '');
         $this->url = (string) ($config['url'] ?? '');
+
+        if (isset($config['entityContact'])) {
+            $this->entityContact = new Entity(
+                (string) $config['entityContact']['name'] ?? '',
+                (string) $config['entityContact']['mail'] ?? '',
+                (string) $config['entityContact']['phone'] ?? '',
+                (string) $config['entityContact']['address'] ?? '',
+                (string) $config['entityContact']['serviceHours'] ?? ''
+            );
+        }
+
     }
 
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function getEntityContact(): ?Entity
+    {
+        return $this->entityContact;
     }
 
     public function getKeyWords(): string

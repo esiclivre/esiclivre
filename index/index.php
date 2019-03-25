@@ -7,8 +7,13 @@
  Este programa é software livre; você pode redistribuí-lo e/ou
  modificá-lo sob os termos da Licença GPL2.
 ***********************************************************************************/
-
+require_once(__DIR__.'/../vendor/autoload.php');
 require_once("../inc/security.php");
+
+use Esic\Container;
+
+$entityContact = Container::get('settingsApp')->getEntityContact();
+
 
 $login = preg_replace( '/[^0-9]/', '', filter_input( INPUT_POST, 'login' ) );
 $password = filter_input( INPUT_POST, 'password' );
@@ -140,7 +145,26 @@ include("../inc/topo.php");
 
 
         <div id="notificacoes">
-			<div id="linha"> </div>
+            <?php if ($entityContact != null): ?>
+            <div class="contactsOther">
+                <h2 class="contactsOther__title">Outras formas de contato</h2>
+
+                <article class="contactsOther__data contactEntity">
+                    <h3 class="contactEntity__title"><?= $entityContact->getName() ?></h3>
+
+                    <h4 class="contactEntity__phoneTitle">Telefone</h4>
+                    <p class="contactEntity__phoneNumber"><a class="contactEntity__phoneLink" href="tel:55<?= preg_replace('/[^\d]/i', '', $entityContact->getPhone()) ?>"><?= $entityContact->getPhone() ?></a></p>
+
+                    <h4 class="contactEntity__mailTitle">E-mail</h4>
+                    <p class="contactEntity__mailAddress"><a class="contactEntity__mailLink" href="mailto:<?= $entityContact->getMail() ?>"><?= $entityContact->getMail() ?></a></p>
+
+                    <h4 class="contactEntity__addressTitle">Endereço</h4>
+                    <p class="contactEntity__address"><?= $entityContact->getAddress() ?></p>
+
+                    <p class="contactEntity__serviceHours">Atendimento das <?= $entityContact->getServiceHours() ?></p>
+                </article>
+            </div>
+            <?php endif ?>
 
 			<div id="links">
 

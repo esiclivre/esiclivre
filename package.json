@@ -1,0 +1,41 @@
+{
+  "name": "esiclivre",
+  "version": "1.0.0",
+  "description": "Solução voltada para gestão de atendimento ao público que visa atender a Lei de Acesso à Informação",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gulp build",
+    "watch-css": "gulp watch-css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ciebit/esiclivre.git"
+  },
+  "keywords": [
+    "esic",
+    "governo",
+    "atendimento"
+  ],
+  "author": "Prefeitura Municipal do Natal",
+  "contributors": [
+    {
+      "name": "Johnny Saymon",
+      "email": "saymon@ciebit.com",
+      "url": "http://saymon.ciebit.com"
+    }
+  ],
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/ciebit/esiclivre/issues"
+  },
+  "homepage": "https://github.com/ciebit/esiclivre#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "gulp": "^4.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "sass": "^1.15.3"
+  }
+}

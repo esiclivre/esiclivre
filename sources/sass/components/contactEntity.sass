@@ -1,0 +1,51 @@
+%spaceBetweenParagraphs
+    margin-top: 15px
+
+@mixin icon($y)
+    &::before
+        content: ''
+        display: inline-block
+        width: 18px
+        height: 18px
+        margin-right: 4px
+        vertical-align: middle
+        background:
+            image: url('../images/icons.png')
+            repeat: no-repeat
+            position: 0 $y
+
+.contactEntity__title
+    margin: 0
+    color: $colorSecundary
+    @include icon(0)
+
+.contactEntity__phoneTitle,
+.contactEntity__mailTitle,
+.contactEntity__addressTitle
+    display: none
+
+.contactEntity__mailAddress,
+.contactEntity__phoneNumber,
+.contactEntity__address,
+.contactEntity__serviceHours
+    @extend %spaceBetweenParagraphs
+
+.contactEntity__phoneLink
+.contactEntity__mailLink
+    color: $colorSecundary
+
+.contactEntity__mailAddress
+    display: inline-block
+    @include icon(-80px)
+
+.contactEntity__phoneNumber
+    display: inline-block
+    padding-right: 60px
+    @include icon(-60px)
+
+.contactEntity__address
+    @include icon(-20px)
+
+.contactEntity__serviceHours
+    clear: left
+    @include icon(-40px)
