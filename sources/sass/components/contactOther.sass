@@ -1,0 +1,28 @@
+.contactsOther
+    display: grid
+    grid-template-columns: 200px auto
+    grid-template-areas: "title data"
+    align-items: stretch
+    border:
+        top: 1px solid $colorPrimary
+        bottom: 1px solid $colorPrimary
+
+.contactsOther h3
+    font-size: 1em
+
+.contactsOther__title
+    grid-area: title
+    text-align: right
+    padding: 30px
+    color: $colorPrimary
+    background-color: $colorBase
+
+.contactsOther__data
+    font-size: 1.4em
+    grid-area: data
+    padding: 30px
+    background:
+        image: url('../images/icons.png')
+        position: -20px center
+        repeat: no-repeat
+    color: $colorSecundary
