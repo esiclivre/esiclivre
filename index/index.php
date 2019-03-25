@@ -140,7 +140,24 @@ include("../inc/topo.php");
 
 
         <div id="notificacoes">
-			<div id="linha"> </div>
+            <div class="contactsOther">
+                <h2 class="contactsOther__title">Outras formas de contato</h2>
+
+                <article class="contactsOther__data contactEntity">
+                    <h3 class="contactEntity__title">Gabinete</h3>
+
+                    <h4 class="contactEntity__phoneTitle">Telefone</h4>
+                    <p class="contactEntity__phoneNumber"><a class="contactEntity__phoneLink" href="tel:558835491020">(88) 3549-1020</a></p>
+
+                    <h4 class="contactEntity__mailTitle">E-mail</h4>
+                    <p class="contactEntity__mailAddress"><a class="contactEntity__mailLink" href="mailto:esic@tarrafas.ce.gov.br">esic@tarrafas.ce.gov.br</a></p>
+
+                    <h4 class="contactEntity__addressTitle">Endereço</h4>
+                    <p class="contactEntity__address">Rua São José, nº 270, Centro, Tarrafas, Ceará - CEP: 63.145-000</p>
+
+                    <p class="contactEntity__serviceHours">Atendimento das 7h às 13h</p>
+                </article>
+            </div>
 
 			<div id="links">
 
