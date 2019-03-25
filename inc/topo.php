@@ -22,6 +22,7 @@ include_once("config.php");
   <meta name="robots" content="all">
 
   <link rel="stylesheet" type="text/css" href="<?= SITELNK ?>css/estilo.css">
+  <link rel="stylesheet" type="text/css" href="<?= SITELNK ?>assets/css/index-v1.css">
 
   <script src="<?= SITELNK ?>js/functions.js"></script>
 
