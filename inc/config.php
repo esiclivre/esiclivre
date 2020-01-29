@@ -65,4 +65,5 @@ use Esic\Settings\Session;
     define("SMTP_PWD", $mailer->getPassword());
     define("SMTP_EMAIL", $mailer->getMail());
     define("SMTP_NOME", $mailer->getName());
+    define("SMTP_PROTOCOL", $mailer->getProtocol());
 })(include __DIR__.'/../settings.php');

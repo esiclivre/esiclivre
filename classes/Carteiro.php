@@ -44,7 +44,7 @@ class Carteiro
         // Autênticação e segurança
         if (SMTP_AUTH) {
             $PHPMailer->SMTPAuth = true;
-            $PHPMailer->SMTPSecure = 'ssl';
+            $PHPMailer->SMTPSecure = SMTP_PROTOCOL;
         }
 
         // Configuração da conta de envio
