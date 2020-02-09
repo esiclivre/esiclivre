@@ -38,5 +38,6 @@ return [
         'mail' => 'esic@mail.gov.br',
         'user' => 'esic@mail.gov.br',
         'password' => '',
+        'verifyCertificates' => false
     ]
 ];

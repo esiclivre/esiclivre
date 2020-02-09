@@ -27,10 +27,10 @@ function isCnpj($cnpj)
     for ($i = 0; $i < 13; $i++) {
         $j = $j == 1 ? 9 : $j;
         $k = $k == 1 ? 9 : $k;
-        $soma2 += ( $cnpj{$i} * $k);
+        $soma2 += ( $cnpj[$i] * $k);
 
         if ($i < 12) {
-            $soma1 += ( $cnpj{$i} * $j);
+            $soma1 += ( $cnpj[$i] * $j);
         }
         $k--;
         $j--;
@@ -39,7 +39,7 @@ function isCnpj($cnpj)
     $digito1 = $soma1 % 11 < 2 ? 0 : 11 - $soma1 % 11;
     $digito2 = $soma2 % 11 < 2 ? 0 : 11 - $soma2 % 11;
 
-    return (($cnpj{12} == $digito1) and ($cnpj{13} == $digito2));
+    return (($cnpj[12] == $digito1) and ($cnpj[13] == $digito2));
 }
 
 function isCpf($cpf)
@@ -49,14 +49,14 @@ function isCpf($cpf)
 		if ( $cpf ==  str_repeat( $i , 11) or !preg_match("@^[0-9]{11}$@", $cpf ) or $cpf == "12345678909" )
 			return false;
 		if ( $i < 9 )
-			$soma[]  = $cpf{$i} * ( 10 - $i );
+			$soma[]  = $cpf[$i] * ( 10 - $i );
 
-		$soma2[] = $cpf{$i} * ( 11 - $i );
+		$soma2[] = $cpf[$i] * ( 11 - $i );
 	}
-	if(((array_sum($soma)% 11) < 2 ? 0 : 11 - ( array_sum($soma)  % 11 )) != $cpf{9})
+	if(((array_sum($soma)% 11) < 2 ? 0 : 11 - ( array_sum($soma)  % 11 )) != $cpf[9])
 		return false;
 
-	return ((( array_sum($soma2)% 11 ) < 2 ? 0 : 11 - ( array_sum($soma2) % 11 )) != $cpf{10}) ? false : true;
+	return ((( array_sum($soma2)% 11 ) < 2 ? 0 : 11 - ( array_sum($soma2) % 11 )) != $cpf[10]) ? false : true;
 }
 
 
@@ -218,11 +218,10 @@ function smarty_function_data($params, &$smarty)
 }
 
 
-//retorna o valor da variavel de sess�o
+//retorna o valor da variavel de sessão
 function getSession($campo)
 {
-	$sessionlist = $_SESSION[SISTEMA_CODIGO];
-	return $sessionlist[$campo];
+	return $_SESSION[SISTEMA_CODIGO][$campo] ?? null;
 }
 
 function letrasIniciais($nome,$minusculas = true){

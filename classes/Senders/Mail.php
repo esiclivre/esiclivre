@@ -38,6 +38,7 @@ class Mail
     public function send(): bool
     {
         $this->sender->isSMTP();
+        $this->sender->setLanguage('pt-BR');
         $this->sender->CharSet = 'utf-8';
         $this->sender->Host = $this->settings->getHost();
         $this->sender->SMTPAuth = $this->settings->getAuthentication();
@@ -45,6 +46,16 @@ class Mail
         $this->sender->Password = $this->settings->getPassword();
         $this->sender->SMTPSecure = $this->settings->getProtocol();
         $this->sender->Port = $this->settings->getPort();
+
+        if (! $this->settings->getVerifyCertificates()) {
+            $this->sender->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+        }
 
         return $this->sender->send();
     }

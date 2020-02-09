@@ -224,7 +224,10 @@ function getDemandas($filtro_ = "", $limit = 0) {
 
 	$idSicUsuario 	= getSession('idsecretaria');	//Sic logado
 	$sicsUsuarios 	= getSession('sic');				//Todos os sics do usuario
-	$sicCentral_ 	= $sicsUsuarios[$idSicUsuario][2];
+	$sicCentral_ 	= '';
+	if (is_array($idSicUsuario)) {
+		$sicCentral_ 	= $sicsUsuarios[$idSicUsuario][2];
+	}
 
 	$qryLimit	= "";
 
@@ -291,7 +294,7 @@ function getDemandas($filtro_ = "", $limit = 0) {
 function getDemandaMes($sicCentral_) {
 
 	$rs_ = getSolTotal("", "", 3, $sicCentral_); // total, origem, mes, situacao
-	$total;
+	$total = [];
 
 	while ($reg = mysqli_fetch_array($rs_)) {
 
@@ -320,7 +323,7 @@ function getStatus($status) {
 	if ($status == "A")
 		return "Aberto";
 	else if ($status == "T")
-		return "Tramita��o";
+		return "Tramitação";
 	else if ($status == "R")
 		return "Respondido";
 	else if ($status == "N")
@@ -335,16 +338,17 @@ function getOrigem($status) {
 	else if ($status == 3)
 		return "Eu Inspetor";
 	else
-		return "N�o classificado";
+		return "Não classificado";
 }
 
 
 /*
-	getEnquete - retorna a pesquisa de satisfa��o do retorno da demanda
+	getEnquete - retorna a pesquisa de satisfação do retorno da demanda
 */
 function getEnquete() {
 
 	$comentarios= [];
+	$total = 0;
 	$totais 	= [];
 
 	$sql = "SELECT
@@ -364,7 +368,7 @@ function getEnquete() {
 		else if ($reg['resposta']  == 'B')
 			$resposta = 'Bom';
 		else if ($reg['resposta']  == 'O')
-			$resposta = '�tima';
+			$resposta = 'Ótima';
 
 		$total++;
 		$totais[$reg['resposta']] = $totais[$reg['resposta']] + 1;

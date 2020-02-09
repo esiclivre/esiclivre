@@ -510,11 +510,20 @@ class Solicitante {
 			return false;
 	}
 
-        public function reenvioConfirmacao(){
-
-                $sql="select nome, email from lda_solicitante where idsolicitante = $this->idsolicitante";
-                $result = execQuery($sql);
-                $row = mysqli_fetch_array($result);
+		public function reenvioConfirmacao()
+		{
+				$idSolicitante = $this->idsolicitante ?? 0;
+                $sql="select nome, email from lda_solicitante where idsolicitante = {$idSolicitante}";
+				$result = execQuery($sql);
+				if (! $result) {
+					return false;
+				}
+				$row = mysqli_fetch_array($result);
+				
+				if (empty($row)) {
+					error_log('Solicitante não localizado');
+					return false;
+				}
 
                 $body="Prezado(a) ".$row['nome'].",<br> <br>
 
