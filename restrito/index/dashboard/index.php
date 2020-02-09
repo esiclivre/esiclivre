@@ -2,8 +2,12 @@
 
 require("funcoes.php");
 
+$sicCentral = '';
 $sic = getSession('sic');
-$sicCentral = $sic[getSession('idsecretaria')][2];
+
+if (is_array($sic)) {
+	$sicCentral = $sic[getSession('idsecretaria')][2];
+}
 
 //echo getSolTotal("'A'","",1,$sicCentral);
 
@@ -148,7 +152,9 @@ $resumoSis = getSolResSis($rs_);
 			</div>
 		</div--> <!--FIM FUNCAO Demanda por sistema-->
 		<?php
-			if (getSession("sic")[getSession("idsecretaria")][2] > 0) {
+			$sessionSic = getSession("sic");
+			$sessionIdSecretaria = getSession("idsecretaria");
+			if (is_array($sessionSic) && $sessionIdSecretaria && $sessionSic[$sessionIdSecretaria][2] > 0) {
 				$enquete 	= getEnquete();
 				$totais		= $enquete[0];
 				$total		= $enquete[1];
@@ -210,7 +216,11 @@ $resumoSis = getSolResSis($rs_);
 			</div>
 		</div>
 		<?php } ?>
-		<?php if (getSession("sic")[getSession("idsecretaria")][2] > 0) { ?>
+		<?php 
+			$sessionSic = getSession("sic");
+			$sessionIdSecretaria = getSession("idsecretaria");
+			if (is_array($sessionSic) && $sessionIdSecretaria && $sessionSic[$sessionIdSecretaria][2] > 0) { 
+		?>
 		<div class="row m-b">
 			<div class="col-md-12">
 				<h4 class="subtitle">Demandas por diretorias</h4>
@@ -290,7 +300,7 @@ $resumoSis = getSolResSis($rs_);
 					</table>
 				</div>
 			</div>
-		</div--> <!--FIM FUN��O DEMANDA POR MES, TALVEZ REMOVER -->
+		</div--> <!--FIM FUNÇÃO DEMANDA POR MES, TALVEZ REMOVER -->
 		<div class="row m-b">
 			<div class="col-md-12">
 				<h4 class="subtitle">Últimas demandas cadastradas</h4>
