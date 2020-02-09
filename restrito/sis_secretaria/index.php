@@ -45,6 +45,10 @@ $sql = "select * from sis_secretaria s
 $resultado = execQueryPag($sql);
 //$num = mysqli_num_rows($resultado);
 
+if (! isset($ativo)) {
+	$ativado = '';
+}
+
 ?>
 
 <script>
