@@ -7,32 +7,16 @@ class Mailer implements Settings
 {
     public const LIBRARY_PHPMAILER = 'phpmailer';
 
-    /** @var bool */
-    private $authentication;
-
-    /** @var string */
-    private $host;
-
-    /** @var string */
-    private $library;
-
-    /** @var int */
-    private $port;
-
-    /** @var string */
-    private $protocol;
-
-    /** @var string */
-    private $mail;
-
-    /** @var string */
-    private $name;
-
-    /** @var string */
-    private $password;
-
-    /** @var string */
-    private $user;
+    private bool $authentication;
+    private string $host;
+    private string $library;
+    private string $mail;
+    private string $name;
+    private string $password;
+    private int $port;
+    private string $protocol;
+    private string $user;
+    private bool $verifyCertificates;
 
     public function __construct(array $config)
     {
@@ -45,6 +29,7 @@ class Mailer implements Settings
         $this->name = (string) ($config['name'] ?? '');
         $this->password = (string) ($config['password'] ?? '');
         $this->user = (string) ($config['user'] ?? '');
+        $this->verifyCertificates = (bool) ($config['verifyCertificates'] ?? true);
     }
 
     public function getAuthentication(): bool
@@ -90,5 +75,10 @@ class Mailer implements Settings
     public function getUser(): string
     {
         return $this->user;
+    }
+
+    public function getVerifyCertificates(): bool
+    {
+        return $this->verifyCertificates;
     }
 }

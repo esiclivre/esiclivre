@@ -325,11 +325,7 @@ function getURL($sis = "lda"){
 
 function prepData($var) {
   $conn = db_open();
-
-  if (get_magic_quotes_gpc()) {
-    $var = stripslashes($var);
-  }
-
+  
   $retorno = mysqli_real_escape_string($conn, $var);
 
   db_close($conn);

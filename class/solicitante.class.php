@@ -510,8 +510,15 @@ class Solicitante {
         public function reenvioConfirmacao(){
 
                 $sql="select nome, email from lda_solicitante where idsolicitante = $this->idsolicitante";
-                $result = execQuery($sql);
-                $row = mysqli_fetch_array($result);
+				$result = execQuery($sql);
+				if (! $result) {
+					return false;
+				}
+				$row = mysqli_fetch_array($result);
+				
+				if (empty($row)) {
+					return false;
+				}
 
                 $body="Prezado(a) ".$row['nome'].",<br> <br>
 

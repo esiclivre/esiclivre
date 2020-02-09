@@ -218,11 +218,10 @@ function smarty_function_data($params, &$smarty)
 }
 
 
-//retorna o valor da variavel de sess�o
+//retorna o valor da variavel de sessão
 function getSession($campo)
 {
-	$sessionlist = $_SESSION[SISTEMA_CODIGO];
-	return $sessionlist[$campo];
+	return $_SESSION[SISTEMA_CODIGO][$campo] ?? null;
 }
 
 function letrasIniciais($nome,$minusculas = true){

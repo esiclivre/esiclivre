@@ -42,7 +42,7 @@ class Cpf
         // Mutiplicando e somando número padrão com os respectivos números do cpf
         $j = 10; //Valor padrão
         for ($i = 0; $i < 9; $i++) {
-            $dig1 += $j * $numeros{$i};
+            $dig1 += $j * $numeros[$i];
             $j--;
         }
 
@@ -57,7 +57,7 @@ class Cpf
         $numeros = substr($numeros, 0, 9).$dig1;
 
         for ($i = 0; $i < 10; $i++) {
-            $dig2 += $j * $numeros{$i};
+            $dig2 += $j * $numeros[$i];
             $j--;
         }
 

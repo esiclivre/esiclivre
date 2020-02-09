@@ -1,7 +1,9 @@
 <?php
 require '../../config.php';
 
+use Esic\Container;
 use Esic\Mensagem;
+use Esic\Senders\Mail;
 
 // Definindo templates padrões
 $pag_corpo = ESIC_VIZ.'mensagem.php';
@@ -28,16 +30,16 @@ if ($sit) {
             array('solicitante' => $Solicitante)
         );
 
-        // Criando objeto para envio de e-mail
-        $Carteiro = new \Esic\Carteiro;
+        $settingsMail = Container::get('settingsMailer');
+        $senderMail = new Mail($settingsMail);
 
         // Definindo e enviando
-        $sit_cadastro = $Carteiro
-        ->defDestino($Solicitante->obterEmail(), $Solicitante->obterNome())
-        ->defAssunto('Confirmação de Cadastro no '. SISTEMA_NOME)
-        ->defMensagem($email_msg)
-        ->enviar()
-        ;
+        $sit_cadastro = $senderMail
+            ->setFrom($settingsMail->getUser(), $settingsMail->getName())
+            ->addTo($Solicitante->obterEmail(), $Solicitante->obterNome())
+            ->setSubject('Confirmação de Cadastro no ' . SISTEMA_NOME)
+            ->setBody($email_msg, true)
+            ->send();
 
         // Criando mensagem de sucesso
         $Mensagem = new Mensagem('solicitante-confirmacao-sucesso');

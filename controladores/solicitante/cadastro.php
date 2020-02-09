@@ -1,6 +1,10 @@
 <?php
 require '../../config.php';
 
+use Esic\Container;
+use Esic\Mensagem;
+use Esic\Senders\Mail;
+
 // Definindo templates padrões
 $pag_corpo = ESIC_VIZ.'solicitante-cadastro-form.php';
 $pag_corpo_param = array();
@@ -53,19 +57,21 @@ if ($acao != 'cadastrar') {
                 array('solicitante' => $Solicitante)
             );
 
-            // Criando objeto para envio de e-mail
-            $Carteiro = new \Esic\Carteiro;
+            $settingsMail = Container::get('settingsMailer');
+            $senderMail = new Mail($settingsMail);
 
             // Definindo e enviando
-            $sit_cadastro = $Carteiro
-            ->defDestino($Solicitante->obterEmail(), $Solicitante->obterNome())
-            ->defAssunto('Cadastro no '. SISTEMA_NOME)
-            ->defMensagem($email_msg)
-            ->enviar()
+            $sit_cadastro = $senderMail
+            ->setFrom($settingsMail->getUser(), $settingsMail->getName())
+            ->addTo($Solicitante->obterEmail(), $Solicitante->obterNome())
+            ->setSubject('Cadastro no '. SISTEMA_NOME)
+            ->setBody($email_msg, true)
+            ->send()
             ;
 
             if (! $sit_cadastro) {
-                $Mensagem = $Carteiro->obterMensagens()->obterUltima();
+                error_log($senderMail->getError());
+                $Mensagem = new Mensagem('carteiro-envio-erro', $senderMail->getError());
             }
         }
     }
