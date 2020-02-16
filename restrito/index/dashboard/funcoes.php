@@ -126,34 +126,34 @@ function getSolResSis($rs) {
 
 
 function formatSolSis($resumo) {
-	$ret .= "<tr>
+	$ret = "<tr>
 		<td>".getOrigem(1)."</td>
-		<td class='text-center'>".$resumo[1]['A']."</td>
-		<td class='text-center'>".$resumo[1]['T']."</td>
-		<td class='text-center'>".$resumo[1]['R']."</td>
-		<td class='text-center'>".$resumo[1]['N']."</td>
-		<td class='text-center'>".$resumo[1]['total']."</td>
-		<td class='text-center'>".$resumo[1]['link']."</td>
+		<td class='text-center'>".($resumo[1]['A'] ?? '')."</td>
+		<td class='text-center'>".($resumo[1]['T'] ?? '')."</td>
+		<td class='text-center'>".($resumo[1]['R'] ?? '')."</td>
+		<td class='text-center'>".($resumo[1]['N'] ?? '')."</td>
+		<td class='text-center'>".($resumo[1]['total'] ?? '')."</td>
+		<td class='text-center'>".($resumo[1]['link'] ?? '')."</td>
 	</tr>";
 
 	$ret .= "<tr>
 		<td>".getOrigem(2)."</td>
-		<td class='text-center'>".$resumo[2]['A']."</td>
-		<td class='text-center'>".$resumo[2]['T']."</td>
-		<td class='text-center'>".$resumo[2]['R']."</td>
-		<td class='text-center'>".$resumo[2]['N']."</td>
-		<td class='text-center'>".$resumo[2]['total']."</td>
-		<td class='text-center'>".$resumo[2]['link']."</td>
+		<td class='text-center'>".($resumo[2]['A'] ?? '')."</td>
+		<td class='text-center'>".($resumo[2]['T'] ?? '')."</td>
+		<td class='text-center'>".($resumo[2]['R'] ?? '')."</td>
+		<td class='text-center'>".($resumo[2]['N'] ?? '')."</td>
+		<td class='text-center'>".($resumo[2]['total'] ?? '')."</td>
+		<td class='text-center'>".($resumo[2]['link'] ?? '')."</td>
 	</tr>";
 
 	$ret .= "<tr>
 		<td>".getOrigem(3)."</td>
-		<td class='text-center'>".$resumo[3]['A']."</td>
-		<td class='text-center'>".$resumo[3]['T']."</td>
-		<td class='text-center'>".$resumo[3]['R']."</td>
-		<td class='text-center'>".$resumo[3]['N']."</td>
-		<td class='text-center'>".$resumo[3]['total']."</td>
-		<td class='text-center'>".$resumo[3]['link']."</td>
+		<td class='text-center'>".($resumo[3]['A'] ?? '')."</td>
+		<td class='text-center'>".($resumo[3]['T'] ?? '')."</td>
+		<td class='text-center'>".($resumo[3]['R'] ?? '')."</td>
+		<td class='text-center'>".($resumo[3]['N'] ?? '')."</td>
+		<td class='text-center'>".($resumo[3]['total'] ?? '')."</td>
+		<td class='text-center'>".($resumo[3]['link'] ?? '')."</td>
 	</tr>";
 
 	return $ret;
@@ -295,6 +295,10 @@ function getDemandaMes($sicCentral_) {
 
 	$rs_ = getSolTotal("", "", 3, $sicCentral_); // total, origem, mes, situacao
 	$total = [];
+
+	if ($rs_ == false) {
+		return $total;
+	}
 
 	while ($reg = mysqli_fetch_array($rs_)) {
 

@@ -125,7 +125,7 @@
 	</tr>
 	<tr id="lendereco">
 		<td colspan="2">
-			<input type="hidden" name="idlogradouro" id="idlogradouro" value="<?php echo $idlogradouro;?>">
+			<input type="hidden" name="idlogradouro" id="idlogradouro" value="<?php echo $idlogradouro ?? '';?>">
 			<table width="100%">
 				<tr>
 					<td align="left">CEP:</td>

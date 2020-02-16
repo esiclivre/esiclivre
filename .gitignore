@@ -2,3 +2,4 @@
 /node_modules/
 /vendor/
 /settings.php
+/storages/error.log

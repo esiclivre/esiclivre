@@ -90,9 +90,9 @@ $resumoSis = getSolResSis($rs_);
 				<div class="box">
 					<header>Demanda por sistema</header>
 					 <?php
-						$esicPerc 	= round(($resumoSis[1]['total']*100)/$resumoSis[0]['total']);
-						$ouviPerc 	= round(($resumoSis[2]['total']*100)/$resumoSis[0]['total']);
-						$euinPerc 	= round(($resumoSis[3]['total']*100)/$resumoSis[0]['total']);
+						$esicPerc 	= round((($resumoSis[1]['total'] ?? 0)*100)/($resumoSis[0]['total'] ?? 1));
+						$ouviPerc 	= round((($resumoSis[2]['total'] ?? 0)*100)/($resumoSis[0]['total'] ?? 1));
+						$euinPerc 	= round((($resumoSis[3]['total'] ?? 0)*100)/($resumoSis[0]['total'] ?? 1));
 					 ?>
 					<div class="caption">
 						<div class="block">
@@ -280,7 +280,7 @@ $resumoSis = getSolResSis($rs_);
 						for ($iSis = 1; $iSis < 4; $iSis++) {
 						?>
 							<tr style="cursor:pointer;">
-								<td onClick="<?php echo $clickMovimento; ?>"><?= getOrigem($iSis); ?></td>
+								<td onClick="<?php echo $clickMovimento ?? ''; ?>"><?= getOrigem($iSis); ?></td>
 							<?php
 							$month = date('n');
 							for ($i = 1; $i <= 6; $i++) {
@@ -290,8 +290,8 @@ $resumoSis = getSolResSis($rs_);
 
 							?>
 
-								<td style="text-align: center;"><a href="<?php echo $clickMovimentoA; ?>"><?= ($demandasMes[$iSis][$month]['A'])?:0; ?></a></td>
-								<td style="text-align: center;"><a href="<?php echo $clickMovimentoR; ?>"><?= ($demandasMes[$iSis][$month]['R'])?:0; ?></a></td>
+								<td style="text-align: center;"><a href="<?php echo $clickMovimentoA; ?>"><?= $demandasMes[$iSis][$month]['A'] ?? 0; ?></a></td>
+								<td style="text-align: center;"><a href="<?php echo $clickMovimentoR; ?>"><?= $demandasMes[$iSis][$month]['R'] ?? 0; ?></a></td>
 
 						<?php $month = date('n', strtotime('-'.$i.' month')); }	?>
 							</tr>
