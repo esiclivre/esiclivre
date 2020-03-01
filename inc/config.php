@@ -30,6 +30,7 @@ use Esic\Settings\Session;
     }
     mb_internal_encoding($environment->getEncoding());
     mb_http_output($environment->getEncoding());
+    ini_set('error_log', __DIR__ . '/../storages/error.log');
 
     /**
      * Sesion

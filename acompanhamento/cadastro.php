@@ -132,7 +132,7 @@
 <div class="form-group">
 
 <input type="hidden" name="fltnumprotocolo" value="<?php echo $fltnumprotocolo; ?>">
-<input type="hidden" name="fltsolicitante" value="<?php echo $fltsolicitante; ?>">
+<input type="hidden" name="fltsolicitante" value="<?php echo $fltsolicitante ?? ''; ?>">
 <input type="hidden" name="fltsituacao" value="<?php echo $fltsituacao; ?>">
 
 <input type="hidden" name="acao" id="acao" value="<?php echo $acao; ?>">
@@ -144,11 +144,11 @@
 <input type="hidden" name="numeroprotocolo" value="<?php echo $numeroprotocolo; ?>">
 <input type="hidden" name="instancia" id="instancia" value="<?php echo $instancia;?>">
 <input type="hidden" name="idtiposolicitacao" id="idtiposolicitacao" value="<?php echo $idtiposolicitacao;?>">
-<input type="hidden" name="recursosolicitado" id="recursosolicitado" value="<?php echo $recursosolicitado;?>">
+<input type="hidden" name="recursosolicitado" id="recursosolicitado" value="<?php echo $recursosolicitado ?? '';?>">
 <input type="hidden" name="situacao" id="situacao" value="<?php echo $situacao;?>">
 <input type="hidden" name="textosolicitacao" id="textosolicitacao" value="<?php echo $textosolicitacao;?>">
 <input type="hidden" name="formaretorno" id="formaretorno" value="<?php echo $formaretorno;?>">
-<input type="hidden" name="dataprevisaorespota" id="dataprevisaorespota" value="<?php echo $dataprevisaorespota;?>">
+<input type="hidden" name="dataprevisaorespota" id="dataprevisaorespota" value="<?php echo $dataprevisaorespota ?? '';?>">
 <input type="hidden" name="datasolicitacao" id="datasolicitacao" value="<?php echo $datasolicitacao;?>">
 <input type="hidden" name="datarecebimentosolicitacao" id="datarecebimentosolicitacao" value="<?php echo $datarecebimentosolicitacao;?>">
 <input type="hidden" name="usuariorecebimento" id="usuariorecebimento" value="<?php echo $usuariorecebimento;?>">
@@ -330,15 +330,15 @@
         ?>
         <tr id="lnRecurso1" style="display: none">
                 <td valign="top" align="left">Solicitação de Recurso: </td>
-                <td colspan="3" align="left"><textarea name="txttextosolicitacao" id="txttextosolicitacao" rows="10" cols="60" onkeyup="setMaxLength(4000,this);"><?php echo $txttextosolicitacao;?></textarea></td>
+                <td colspan="3" align="left"><textarea name="txttextosolicitacao" id="txttextosolicitacao" rows="10" cols="60" onkeyup="setMaxLength(4000,this);"><?php echo $txttextosolicitacao ?? '';?></textarea></td>
         </tr>
         <tr id="lnRecurso2" style="display: none">
                 <td valign="top" align="left">Forma de retorno: </td>
                 <td align="left" colspan="3">
                     <select name="txtformaretorno" id="txtformaretorno">
-                            <option value="E" <?php echo $txtformaretorno=="E"?"selected":""; ?>>E-mail</option>
-                            <option value="C" <?php echo $txtformaretorno=="C"?"selected":""; ?>>Correio</option>
-                            <option value="F" <?php echo $txtformaretorno=="F"?"selected":""; ?>>Fax</option>
+                            <option value="E" <?php echo ($txtformaretorno ?? '')=="E"?"selected":""; ?>>E-mail</option>
+                            <option value="C" <?php echo ($txtformaretorno ?? '')=="C"?"selected":""; ?>>Correio</option>
+                            <option value="F" <?php echo ($txtformaretorno ?? '')=="F"?"selected":""; ?>>Fax</option>
                     </select>
                 </td>
         </tr>

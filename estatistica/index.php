@@ -76,7 +76,7 @@ include("../inc/topo.php");
 		{
 			var bar = new RGraph.Bar({
 				id: 'cvs',
-				data: [<?php echo $dados; ?>],
+				data: [<?php echo $dados ?? ''; ?>],
 				options: {
 					colors: ['Gradient(white:#006699:#006699)', 'Gradient(white:#FF9900:#FF9900)','Gradient(white:#FF0000:#FF0000)'],
 					gutter: {
@@ -90,11 +90,11 @@ include("../inc/topo.php");
 							border: false
 						}
 					},
-					ymax:  <?php echo $maiornumero+10;?>,
+					ymax:  <?php echo ($maiornumero ?? 0) + 10;?>,
 					noyaxis: false,
 					ylabels: true,
 					labels: {
-						self: [<?php echo $anos; ?>],
+						self: [<?php echo $anos ?? 0; ?>],
 						above: true
 					},
 					linewidth: 2,
