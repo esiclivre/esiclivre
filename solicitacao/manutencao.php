@@ -8,9 +8,11 @@
  modificá-lo sob os termos da Licença GPL2.
 ***********************************************************************************/
 
-	    include_once("../inc/security.php");
-		include_once("../class/solicitacao.class.php");
+include_once("../inc/security.php");
+include_once("../class/solicitacao.class.php");
+require __DIR__ . "/../vendor/autoload.php";
 
+use Esic\Solicitation;
 
 
 	$erro = ""; //grava o erro, se houver, e exibe por meio de alert (javascript) atraves da funcao getErro() chamada no arquivo do formulario. ps: a fun��o � declara em inc/security.php
@@ -28,7 +30,7 @@
     $formaretorno = filter_input(INPUT_POST, 'formaretorno');
     $idsecretariaselecionada = filter_input(INPUT_POST, 'idsecretariaselecionada');
 
-		$solicitacao = new Solicitacao();
+		$solicitacao = new Solicitation();
 
 		$solicitacao->setIdSolicitante($idsolicitante);
 		$solicitacao->setTextoSolicitacao($textosolicitacao);

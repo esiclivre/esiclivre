@@ -8,8 +8,11 @@
  modificá-lo sob os termos da Licença GPL2.
 ***********************************************************************************/
 
-	include_once("../inc/autenticar.php");
-	include_once("../class/solicitacao.class.php");
+include_once("../inc/autenticar.php");
+include_once("../class/solicitacao.class.php");
+include_once(__DIR__."/../vendor/autoload.php");
+  
+use Esic\Solicitation;
 
   $codigo = filter_input(INPUT_GET, 'codigo');
   $acao = filter_input(INPUT_POST, 'acao');
@@ -33,7 +36,7 @@
 		$acao = "Alterar";
 
                 //recupera campos da demanda
-                $sol = new Solicitacao($codigo);
+                $sol = new Solicitation($codigo);
 
 
 		$idsolicitacao              = $sol->getIdSolicitacao();
@@ -42,7 +45,7 @@
                 $numeroprotocolo            = $sol->getNumeroProtocolo();
                 $textosolicitacao           = $sol->getTextoSolicitacao();
                 $idtiposolicitacao          = $sol->getIdTipoSolicitacao();
-                $instancia                  = Solicitacao::getInstaciaTipoSolicitacao($idtiposolicitacao);
+                $instancia                  = Solicitation::getInstaciaTipoSolicitacao($idtiposolicitacao);
                 $formaretorno               = $sol->getFormaRetorno();
                 $situacao                   = $sol->getSituacao();
                 $datasolicitacao            = $sol->getDataSolicitacao();
@@ -95,10 +98,10 @@
             //se for envio de recurso
             if ($acao == "Enviar")
             {
-                    $sol = new Solicitacao();
+                    $sol = new Solicitation();
 
                     //recupera o proximo tipo de solicita��o, caso retorne falso, deu erro
-                    if(Solicitacao::getProximoTipoSolicitacao($idsolicitacao,$idtiposolicitacaorecurso,$erro))
+                    if(Solicitation::getProximoTipoSolicitacao($idsolicitacao,$idtiposolicitacaorecurso,$erro))
                     {
                         //se nao existir solicita��o original
                         if (empty($idsolicitacaoorigem))
@@ -111,7 +114,7 @@
                         $sol->setIdSolicitante(getSession("uid"));
 
                         //caso nao exista SIC centralizador, o direcionamento vai para quem deu a resposta
-                        if(!Solicitacao::existeSicCentralizador())
+                        if(!Solicitation::existeSicCentralizador())
                             $sol->setIdSecretariaSelecionada($idsecretariaresposta);
 
                         if ($sol->cadastraRecurso($idtiposolicitacaorecurso))

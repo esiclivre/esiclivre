@@ -14,6 +14,10 @@ include_once("../class/solicitacao.class.php");
 include("../inc/topo.php");
 include("../inc/paginacaoPorPostIni.php");
 
+require __DIR__ . '/../vendor/autoload.php';
+
+use Esic\Solicitation;
+
 $filtro = "";
 
 $idsolicitante  = getSession("uid");
@@ -108,7 +112,7 @@ $rs = execQueryPag($sql);
                 <td onClick="<?php echo $click; ?>"><?php echo bdToDate($registro["datasolicitacao"]); ?></td>
                 <td onClick="<?php echo $click; ?>"><?php echo bdToDate($registro["dataprevisaoresposta"]); ?></td>
                 <td onClick="<?php echo $click; ?>"><?php echo (!empty($registro["dataprorrogacao"]))?"Sim":"Não"; ?></td>
-                <td onClick="<?php echo $click; ?>"><?php echo Solicitacao::getDescricaoSituacao($registro["situacao"]); ?></td>
+                <td onClick="<?php echo $click; ?>"><?php echo Solicitation::getDescricaoSituacao($registro["situacao"]); ?></td>
                 <td onClick="<?php echo $click; ?>"><?php echo (!empty($registro["dataresposta"]))?bdToDate($registro["dataresposta"]):"-"; ?></td>
             </tr>
             <?php

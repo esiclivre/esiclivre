@@ -1,11 +1,11 @@
 <?php
 /**********************************************************************************
- Sistema e-SIC Livre: sistema de acesso a informação baseado na lei de acesso.
+ Sistema e-SIC Livre: sistema de acesso a informaï¿½ï¿½o baseado na lei de acesso.
  
  Copyright (C) 2014 Prefeitura Municipal do Natal
  
- Este programa é software livre; você pode redistribuí-lo e/ou
- modificá-lo sob os termos da Licença GPL2.
+ Este programa ï¿½ software livre; vocï¿½ pode redistribuï¿½-lo e/ou
+ modificï¿½-lo sob os termos da Licenï¿½a GPL2.
 ***********************************************************************************/
 
 include_once("../inc/autenticar.php");
@@ -21,7 +21,7 @@ function validaDados()
 	
 	if (empty($resposta))
 	{
-		$erro = "Por favor selecione uma opção de resposta!";
+		$erro = "Por favor selecione uma opï¿½ï¿½o de resposta!";
 		return false;
 	}
 	

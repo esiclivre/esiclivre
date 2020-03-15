@@ -10,9 +10,13 @@
  modificá-lo sob os termos da Licença GPL2.
 ***********************************************************************************/
 
- include("manutencao.php");
- include_once("../inc/security.php");
- include("../inc/topo.php");
+include("manutencao.php");
+include_once("../inc/security.php");
+include("../inc/topo.php");
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Esic\Solicitation;
 
 ?>
 
@@ -171,18 +175,18 @@
                 </td>
                 <td align="left">
                     <b>Tipo Solicitação</b> <br>
-                    &nbsp;&nbsp;<?php echo Solicitacao::getDescricaoTipoSolicitacao($idtiposolicitacao); ?>
+                    &nbsp;&nbsp;<?php echo Solicitation::getDescricaoTipoSolicitacao($idtiposolicitacao); ?>
                     <?php if(!empty($idsolicitacaoorigem)){?>
                     <a href="<?php echo SITELNK;?>acompanhamento/cadastro.php?codigo=<?php echo $idsolicitacaoorigem?>">[Visualizar Processo Origem]</a>
                     <?php }?>
                 </td>
                 <td align="left">
                     <b>Situação</b> <br>
-                    &nbsp;&nbsp;<?php echo Solicitacao::getDescricaoSituacao($situacao); ?>
+                    &nbsp;&nbsp;<?php echo Solicitation::getDescricaoSituacao($situacao); ?>
                 </td>
                 <td align="left">
                     <b>Forma Retorno</b> <br>
-                    &nbsp;&nbsp;<?php echo Solicitacao::getDescricaoFormaRetorno($formaretorno);?>
+                    &nbsp;&nbsp;<?php echo Solicitation::getDescricaoFormaRetorno($formaretorno);?>
                 </td>
         </tr>
 	<tr id="lnDemanda2">
@@ -259,7 +263,7 @@
                             <th>Usu&aacute;rio Recebimento</th>
                         </tr>
                         <?php
-                        $rsMov = Solicitacao::getMovimentacao($idsolicitacao);
+                        $rsMov = Solicitation::getMovimentacao($idsolicitacao);
 
                         while($row = mysqli_fetch_array($rsMov)){
                             ?>
@@ -277,11 +281,11 @@
 	</tr>
         <?php
         //$permiterecurso = true;
-        $permiterecurso = Solicitacao::getPodeRecurso($idsolicitacao,$idsolicitacaoorigem);
+        $permiterecurso = Solicitation::getPodeRecurso($idsolicitacao,$idsolicitacaoorigem);
         if($instancia == "I") { //se for solicita��o inicial, mostra os recursos se houver
 
                 $existerecurso = true;
-                $rsRec = Solicitacao::getRecursos($idsolicitacao);
+                $rsRec = Solicitation::getRecursos($idsolicitacao);
 
 
 
@@ -315,7 +319,7 @@
                                         <tr>
                                             <td><?php echo bdToDate($row["datasolicitacao"]);?></td>
                                             <td><?php echo $row["tiposolicitacao"];?></td>
-                                            <td><?php echo Solicitacao::getDescricaoSituacao($row["situacao"]);?></td>
+                                            <td><?php echo Solicitation::getDescricaoSituacao($row["situacao"]);?></td>
                                             <td><?php echo bdToDate($row["dataprevisaoresposta"]);?></td>
                                             <td><?php echo bdToDate($row["dataresposta"]);?></td>
                                         </tr>

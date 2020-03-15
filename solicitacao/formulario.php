@@ -8,12 +8,16 @@
  modificá-lo sob os termos da Licença GPL2.
 ***********************************************************************************/
 
+require __DIR__ . '/../vendor/autoload.php';
+
+use Esic\Solicitation;
+
 ?>
 <input type="hidden" name="idsolicitante" value="<?php echo $idsolicitante;?>">
 <table align="center" cellpadding="0" cellspacing="1">
 	<tr>
 		<td>
-                        <?php if(!Solicitacao::existeSicCentralizador()){ //exibe SIC's caso n�o exista centralizador?>
+                        <?php if(!Solicitation::existeSicCentralizador()){ //exibe SIC's caso n�o exista centralizador?>
 			<tr>
 				<td align="left">
                                     Destino:
